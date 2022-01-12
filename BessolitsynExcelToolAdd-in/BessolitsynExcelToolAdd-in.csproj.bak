@@ -194,7 +194,6 @@
     <EmbeddedResource Include="RibbonBessolitsyn.resx">
       <DependentUpon>RibbonBessolitsyn.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="BessolitsynExcelToolAdd-in_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -231,7 +230,7 @@
     <ManifestKeyFile>BessolitsynExcelToolAdd-in_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>194B27503604FBAC7950388E5141CAF7B4ADC1D8</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>19D94A900F609FE7E4BDDD66D20EBA171B7ED043</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

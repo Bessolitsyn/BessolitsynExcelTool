@@ -8,7 +8,6 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-
 namespace BessolitsynExcelToolAdd_in
 {
     public partial class RibbonBessolitsyn
@@ -23,8 +22,8 @@ namespace BessolitsynExcelToolAdd_in
         // List as result of R2-R1
         List<string> R2_R1 = new List<string>();
 
-        //Общий диапазон
-        List<string> intersectionOf_R1_R2 = new List<string>();
+        List//Общий диапазон
+        <string> intersectionOf_R1_R2 = new List<string>();
 
         private void RibbonBessolitsyn_Load(object sender, RibbonUIEventArgs e)
         {
@@ -201,7 +200,10 @@ namespace BessolitsynExcelToolAdd_in
         public void Openfile(string file)
         {
             Process myProcess = new Process();
-            Process.Start(@"c:\Program Files\Notepad++\notepad++.exe", "\""+file+"\"");
+            
+            //Process.Start(@"c:\Program Files\Notepad++\notepad++.exe", "\""+file+"\"");
+            Process.Start(@"C:\Program Files (x86)\Notepad++\notepad++.exe", "\"" + file + "\"");
+
         }
         //find IDs
         private void button9_Click(object sender, RibbonControlEventArgs e)
@@ -279,6 +281,168 @@ namespace BessolitsynExcelToolAdd_in
             }
         }
 
+        List<PBS2class> L1 = new List<PBS2class>();
+        List<PBS2class> L2 = new List<PBS2class>();
+        List<PBS2class> L3 = new List<PBS2class>();
+        List<PBS2class> L4 = new List<PBS2class>();
+        private void button14_Click(object sender, RibbonControlEventArgs e)
+
+        {
+            
+            Excel.Range AtributeArea = Globals.ThisAddIn.Application.get_Range("A1:KB1");
+
+            
+            //Excel.Range rng = Globals.ThisAddIn.Application.Selection as Excel.Range;
+            Excel.Range rng = Globals.ThisAddIn.Application.get_Range("A6:KB23");
+            foreach (Excel.Range row in rng.Rows)
+            {
+                PBS2class obj = new PBS2class(row, AtributeArea);
+                int length = obj.ProcessClassCode.Length;
+                switch (length)
+                {
+                    case 1:
+                        obj.Level = 1;
+                        L1.Add(obj);
+                        break;
+
+                    case 2:
+                        obj.Level = 2;
+                        L2.Add(obj);
+                        break;
+
+                    case 3:
+                        obj.Level = 3;
+                        L3.Add(obj);
+                        break;
+
+                    case 5:
+                        obj.Level = 4;
+                        L4.Add(obj);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+            foreach (var item in L3)
+            {
+                var members = L4.Where(x => x.ProcessClassCode.Contains(item.ProcessClassCode)).ToList();
+                item.Members.AddRange(members);
+            }
+
+            foreach (var item in L2)
+            {
+                var members = L3.Where(x => x.ProcessClassCode.Contains(item.ProcessClassCode)).ToList();
+                item.Members.AddRange(members);
+            }
+            foreach (var item in L1)
+            {
+                var members = L2.Where(x => x.ProcessClassCode.Contains(item.ProcessClassCode)).ToList();
+                item.Members.AddRange(members);
+            }
+            //List<string> Strings = new List<string>();
+            //Strings.Add("L1;L2;L3;L4;ProcessClassCode;Attribute;TagIdentifier");
+
+            //foreach (var item1 in L1)
+            //{
+            //    Strings.Add(String.Format("{0};{1};{2};{3};{4};{5};{6}", item1.ProcessClass, "", "", "", item1.ProcessClassCode, "", ""));
+            //    foreach (var item2 in L2)
+            //    {
+            //        Strings.Add(String.Format("{0};{1};{2};{3};{4};{5};{6}", item1.ProcessClass, item2.ProcessClass, "", "", item2.ProcessClassCode, "", ""));
+            //        foreach (var item3 in item2.Members)
+            //        {
+            //            Strings.Add(String.Format("{0};{1};{2};{3};{4};{5};{6}", item1.ProcessClass, item2.ProcessClass, item3.ProcessClass, "", item3.ProcessClassCode, "", ""));
+            //            foreach (var item4 in item3.Members)
+            //            {
+            //                Strings.Add(String.Format("{0};{1};{2};{3};{4};{5};{6}", item1.ProcessClass, item2.ProcessClass, item3.ProcessClass, item4.ProcessClass, item4.ProcessClassCode, "", item4.TagIdentifier));
+            //                foreach (var att in item4.Attributes)
+            //                {
+            //                    Strings.Add(String.Format("{0};{1};{2};{3};{4};{5};{6}", item1.ProcessClass, item2.ProcessClass, item3.ProcessClass, item4.ProcessClass, item4.ProcessClassCode, att.NewStandardAttribute, item4.TagIdentifier));
+
+            //                }
+
+            //            }
+            //        }
+            //    }
+            //}
+            //foreach (var item1 in L1)
+            //{
+            //    Strings.Add(String.Format("{0};{1};{2};{3};{4};{5};{6}", item1.ProcessClass, "", "", "", item1.ProcessClassCode, "", ""));
+            //    foreach (var item2 in L2)
+            //    {
+            //        Strings.Add(String.Format("{0};{1};{2};{3};{4};{5};{6}", item1.ProcessClass, item2.ProcessClass, "", "", item2.ProcessClassCode, "", item2.TagIdentifier));
+            //        foreach (var att in item2.Attributes)
+            //        {
+            //            Strings.Add(String.Format("{0};{1};{2};{3};{4};{5};{6}", item1.ProcessClass, item2.ProcessClass, "", "", item2.ProcessClassCode, att.NewStandardAttribute, item2.TagIdentifier));
+
+            //        }
+                    
+            //    }
+            //}
+
+
+            //var path = "pbs2.csv";
+            //var fileInf = new FileInfo(path);
+            //if (fileInf.Exists)
+            //{
+            //    fileInf.Delete();
+            //}
+
+
+            //var file = new StreamWriter("pbs2.csv");
+            //foreach (String s in Strings)
+            //    file.WriteLine(s);
+            //file.Close();
+            //Openfile(fileInf.FullName);
+
+        }
+
+        private void button15_Click(object sender, RibbonControlEventArgs e)
+        {
+            //"L1;L2;L3;L4;ProcessClassCode;Attribute;TagIdentifier"
+            Excel.Worksheet activeSheet = ((Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet);
+
+            ((Excel.Range)activeSheet.Cells[1, 1]).Value2 = "L1";
+            ((Excel.Range)activeSheet.Cells[1, 2]).Value2 = "L2";
+            ((Excel.Range)activeSheet.Cells[1, 3]).Value2 = "L3";
+            ((Excel.Range)activeSheet.Cells[1, 4]).Value2 = "L4";
+            ((Excel.Range)activeSheet.Cells[1, 5]).Value2 = "ProcessClassCode";
+            ((Excel.Range)activeSheet.Cells[1, 6]).Value2 = "Attribute";
+            ((Excel.Range)activeSheet.Cells[1, 7]).Value2 = "TagIdentifier";
+            int i = 2;
+            foreach (var item1 in L1)
+            {
+                ((Excel.Range)activeSheet.Cells[i, 1]).Value2 = item1.ProcessClass;
+                ((Excel.Range)activeSheet.Cells[i, 5]).Value2 = item1.ProcessClassCode;
+                ((Excel.Range)activeSheet.Cells[i, 1]).Value2 = "";
+                ((Excel.Range)activeSheet.Cells[i, 1]).Value2 = "";
+                ((Excel.Range)activeSheet.Cells[i, 1]).Value2 = "";
+                ((Excel.Range)activeSheet.Cells[i, 1]).Value2 = "";
+                i++;
+                foreach (var item2 in L2)
+                {
+
+                    ((Excel.Range)activeSheet.Cells[i, 1]).Value2 = item1.ProcessClass;
+                    ((Excel.Range)activeSheet.Cells[i, 2]).Value2 = item2.ProcessClass;
+                    ((Excel.Range)activeSheet.Cells[i, 5]).Value2 = item2.ProcessClassCode;
+                    ((Excel.Range)activeSheet.Cells[i, 7]).Value2 = item2.TagIdentifier;
+                    i++;
+                    foreach (var att in item2.Attributes)
+                    {
+                        ((Excel.Range)activeSheet.Cells[i, 1]).Value2 = item1.ProcessClass;
+                        ((Excel.Range)activeSheet.Cells[i, 2]).Value2 = item2.ProcessClass;
+                        ((Excel.Range)activeSheet.Cells[i, 5]).Value2 = item2.ProcessClassCode;
+                        ((Excel.Range)activeSheet.Cells[i, 6]).Value2 = att.NewStandardAttribute;
+                        ((Excel.Range)activeSheet.Cells[i, 7]).Value2 = item2.TagIdentifier;
+                        i++;
+                    }
+
+                }
+            }
+
+        }
+
         public void PasteResults(List<string> rangeList, string marker)
         {
             
@@ -297,5 +461,66 @@ namespace BessolitsynExcelToolAdd_in
                 }
             }
         }
+    }
+
+    public partial class Helper
+    {
+        public static string getValue(dynamic singlecell)
+        {
+            var cell = (Excel.Range)singlecell;
+            string celLValue = Convert.ToString(cell?.Value2);
+            if (celLValue != null)
+            {
+                return celLValue;
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+     
+    }
+
+    public class PBS2class
+    {
+        public string ProcessClassCode { get; set; }
+        public string ProcessClass { get; set; }
+        public string TagIdentifier { get; set; }
+        public int Level { get; set; }
+        public List<PBS2class> Members { get; set; }
+        public PBS2class Owner { get; set; }
+        public List<PBS2attribute> Attributes { get; set; }
+
+
+        public PBS2class(Excel.Range row, Excel.Range AtributeArea)
+        {
+            Attributes = new List<PBS2attribute>();
+            Members = new List<PBS2class>();
+            ProcessClassCode = Helper.getValue(row.Cells[1, 5]);
+            ProcessClass = Helper.getValue(row.Cells[1, 6]);
+            TagIdentifier = Helper.getValue(row.Cells[1, 8]);
+            //12-23
+            for (int i = 12; i < 288; i++)
+            {
+                var AttFlag = Helper.getValue(row.Cells[1, i]);
+                if ((AttFlag == "X") || (AttFlag == "C") || (AttFlag == "O"))
+                {
+                    var Att = Helper.getValue(AtributeArea.Cells[1, i]);
+                    Attributes.Add(new PBS2attribute(Att));
+                }
+            }
+        }
+    }
+    public class PBS2attribute
+    {
+        public string AttributeID { get; set; }
+        public string NewStandardAttribute { get; set; }
+
+        public PBS2attribute(string name)
+        {
+            NewStandardAttribute = name;
+        }
+
     }
 }

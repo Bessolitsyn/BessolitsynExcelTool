@@ -58,6 +58,9 @@ namespace BessolitsynExcelToolAdd_in
             this.button11 = this.Factory.CreateRibbonButton();
             this.button12 = this.Factory.CreateRibbonButton();
             this.button13 = this.Factory.CreateRibbonButton();
+            this.separator5 = this.Factory.CreateRibbonSeparator();
+            this.button14 = this.Factory.CreateRibbonButton();
+            this.button15 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.SuspendLayout();
@@ -89,6 +92,9 @@ namespace BessolitsynExcelToolAdd_in
             this.group1.Items.Add(this.button11);
             this.group1.Items.Add(this.button12);
             this.group1.Items.Add(this.button13);
+            this.group1.Items.Add(this.separator5);
+            this.group1.Items.Add(this.button14);
+            this.group1.Items.Add(this.button15);
             this.group1.Label = "group1";
             this.group1.Name = "group1";
             // 
@@ -197,6 +203,22 @@ namespace BessolitsynExcelToolAdd_in
             this.button13.Name = "button13";
             this.button13.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button13_Click);
             // 
+            // separator5
+            // 
+            this.separator5.Name = "separator5";
+            // 
+            // button14
+            // 
+            this.button14.Label = "button14";
+            this.button14.Name = "button14";
+            this.button14.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button14_Click);
+            // 
+            // button15
+            // 
+            this.button15.Label = "Paste Results";
+            this.button15.Name = "button15";
+            this.button15.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button15_Click);
+            // 
             // RibbonBessolitsyn
             // 
             this.Name = "RibbonBessolitsyn";
@@ -233,6 +255,9 @@ namespace BessolitsynExcelToolAdd_in
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button11;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button12;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button13;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator5;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button14;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button15;
     }
 
     partial class ThisRibbonCollection
