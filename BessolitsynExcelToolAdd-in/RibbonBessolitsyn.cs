@@ -430,7 +430,11 @@ namespace BessolitsynExcelToolAdd_in
         private void button14_Click(object sender, RibbonControlEventArgs e)
 
         {
-            
+            L1 = new List<PBS2class>();
+            L2 = new List<PBS2class>();
+            L3 = new List<PBS2class>();
+            L4 = new List<PBS2class>();
+
             Excel.Range AtributeArea = Globals.ThisAddIn.Application.get_Range("A1:KA1");
 
             
